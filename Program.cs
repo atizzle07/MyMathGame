@@ -129,7 +129,7 @@ do
 
     static void divisionGame()
     {
-        //HACK: Add division game logic, including equation validity
+        //TODO: Add division game logic, including equation validity
     }
 }
 while (input != "exit");
