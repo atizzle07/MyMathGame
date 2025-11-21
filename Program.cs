@@ -20,7 +20,7 @@ decimal divisionMultiplier = 1.75m;
 
 Console.WriteLine();
 Console.WriteLine($"Thanks for playing {playerName}\n");
-System.Console.WriteLine("You will be pick questions for each math operation. For each correct answer you will gain points and for each wrong answer you will lose the same number of points (including multiplier).");
+Console.WriteLine("You will be pick questions for each math operation. For each correct answer you will gain points and for each wrong answer you will lose the same number of points (including multiplier).");
 
 do
 {
@@ -40,21 +40,22 @@ do
         case "1":
             Console.WriteLine("You selected 1. Addition");
             additionGame();
+            Console.ReadLine();
             break;
         case "2":
             Console.WriteLine("You selected 2. Subtraction");
-            Console.WriteLine("This game is not complete, come back later...");
+            subtractionGame();
             Console.ReadLine();
             break;
         case "3":
             Console.WriteLine("You selected 3. Multiplication");
-            Console.WriteLine("This game is not complete, come back later...");
+            multiplyGame();
             Console.ReadLine();
             break;
         case "4":
             Console.WriteLine("You selected 4. Division");
             Console.WriteLine("This game is not complete, come back later...");
-            Console.ReadLine();
+            Console.ReadKey(intercept: true);
             break;
         case "exit":
             Console.WriteLine("Thanks for playing! Press enter to leave...");
@@ -93,7 +94,7 @@ do
 
     void additionGame()
     {
-        string input = null;
+        string? input = null;
         expectedAnswer = num1 + num2;
 
         while (input == null)
@@ -113,18 +114,60 @@ do
             updateScore(-1, additionMultiplier);
             Console.WriteLine($"Sorry, that is incorrect. The answer is {expectedAnswer}. Your score is now {playerScore} points.");
         }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey(intercept: true);
+    }
+
+    void subtractionGame()
+    {
+        string? input = null;
+        expectedAnswer = num1 - num2;
+
+        while (input == null)
+        {
+            Console.WriteLine($"What is {num1} - {num2}?");
+            input = Console.ReadLine();
+        }
+
+        if (Convert.ToInt32(input) == expectedAnswer)
+        {
+            updateScore(1, subtractionMultiplier);
+            Console.WriteLine($"Correct! Your score is now {playerScore} points");
+        }
+
+        else
+        {
+            updateScore(-1, subtractionMultiplier);
+            Console.WriteLine($"Sorry, that is incorrect. The answer is {expectedAnswer}. Your score is now {playerScore} points.");
+        }
         Console.WriteLine("Press any key to contine...");
-        Console.ReadLine();
+        Console.ReadKey(intercept: true);
     }
 
-    static void subtractionGame()
+    void multiplyGame()
     {
-        //TODO: Add subtraction game logic
-    }
+        string? input = null;
+        expectedAnswer = num1 * num2;
 
-    static void multiplyGame()
-    {
-        //TODO: Add multiply game logic
+        while (input == null)
+        {
+            Console.WriteLine($"What is {num1} x {num2}?");
+            input = Console.ReadLine();
+        }
+
+        if (Convert.ToInt32(input) == expectedAnswer)
+        {
+            updateScore(1, multiplyMultiplier);
+            Console.WriteLine($"Correct! Your score is now {playerScore} points");
+        }
+
+        else
+        {
+            updateScore(-1, subtractionMultiplier);
+            Console.WriteLine($"Sorry, that is incorrect. The answer is {expectedAnswer}. Your score is now {playerScore} points.");
+        }
+        Console.WriteLine("Press any key to contine...");
+        Console.ReadKey(intercept: true);
     }
 
     static void divisionGame()
