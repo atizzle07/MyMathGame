@@ -54,7 +54,7 @@ do
             break;
         case "4":
             Console.WriteLine("You selected 4. Division");
-            Console.WriteLine("This game is not complete, come back later...");
+            divisionGame();
             Console.ReadKey(intercept: true);
             break;
         case "exit":
@@ -73,20 +73,24 @@ do
         playerScore += (value * multiplier);
     }
 
-    void getValidGame(int num1, int num2)
+    void ValidNumbers(int num1, int num2)
     {
         // ONLY REQUIRED FOR DIVISION GAME:
         // Takes in two values and determines if the result will be a whole integer. If the result is false this method will re-roll the numbers until a valid equationis reached
-        decimal resultCheck = 0;
+        decimal resultCheck;
 
         do
         {
-            resultCheck = (num1 / num2) % 1;
+            resultCheck = num1 % num2;
             if (resultCheck != 0)
             {
                 Console.WriteLine("Invalid equation, re-rolling numbers...\n");
                 num1 = rand.Next(11);
                 num2 = rand.Next(11);
+            }
+            else
+            {
+                System.Console.WriteLine("Equation valid!");
             }
         }
         while (resultCheck != 0);
@@ -163,16 +167,39 @@ do
 
         else
         {
-            updateScore(-1, subtractionMultiplier);
+            updateScore(-1, multiplyMultiplier);
             Console.WriteLine($"Sorry, that is incorrect. The answer is {expectedAnswer}. Your score is now {playerScore} points.");
         }
         Console.WriteLine("Press any key to contine...");
         Console.ReadKey(intercept: true);
     }
 
-    static void divisionGame()
+    void divisionGame()
     {
         //TODO: Add division game logic, including equation validity
+        string? input = null;
+        ValidNumbers(num1, num2);
+        decimal expectedAnswer = num1 / num2;
+        System.Console.WriteLine($"Num1: {num1}   Num2: {num2}   Answer: {expectedAnswer}");
+        while (input == null)
+        {
+            Console.WriteLine($"What is {num1} / {num2}?");
+            input = Console.ReadLine();
+        }
+
+        if (Convert.ToInt32(input) == expectedAnswer)
+        {
+            updateScore(1, divisionMultiplier);
+            Console.WriteLine($"Correct! Your score is now {playerScore} points");
+        }
+
+        else
+        {
+            updateScore(-1, divisionMultiplier);
+            Console.WriteLine($"Sorry, that is incorrect. The answer is {expectedAnswer}. Your score is now {playerScore} points.");
+        }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey(intercept: true);
     }
 }
 while (input != "exit");
