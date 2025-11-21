@@ -176,7 +176,6 @@ do
 
     void divisionGame()
     {
-        //TODO: Add division game logic, including equation validity
         string? input = null;
         ValidNumbers(num1, num2);
         decimal expectedAnswer = num1 / num2;
